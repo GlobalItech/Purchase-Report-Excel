@@ -4,7 +4,7 @@
     'category': 'Warehouse',
     'license': "AGPL-3",
     'summary': "purchase",
-    'author': 'Itech reosurces',
+    'author': 'Itech resources',
     'company': 'ItechResources',
     'depends': [
                 'account',
