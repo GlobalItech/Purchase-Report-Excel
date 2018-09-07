@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model='ir.ui.view' id='purchase_wizard_form'>
+             <field name="name">wizard.purchase.history.form</field>
+            <field name="model">wizard.purchase.history</field>
+            <field name="arch" type="xml">
+                <form string="Wizard">
+                        <group string="Purchase Report">
+                            <field name="date_from" string="Date from"/>
+                            <field name="date_to" string="Date To"/>
+                        </group>
+                        <group>
+                            <field name="report_type" string="Report Type"/>
+                        </group>
+                        <group>
+                            <field name="indv_product"  attrs="{'invisible':[('report_type','!=','indivproduct_wise')]}"/>
+                            <field name="warehouse"  attrs="{'invisible':[('report_type','!=','indivproduct_wise')]}"/>
+
+                            <field name="category"  attrs="{'invisible':[('report_type','!=','product_wise')]}"/>
+                            <field name="partner" attrs="{'invisible':[('report_type','!=','purchase_partywise')]}"/>
+                        </group>
+                        <!-- <notebook>
+                            <page string="Category">
+                                <field name="category">
+                                    <tree>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook> -->
+                    <footer>
+                        <button name="export_xls" type="object" default_focus="1"
+                                string="Export Purchase Info" class="oe_highlight"
+                                context="{'xls_export':1}" icon="fa-download"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model='ir.actions.act_window' id='purchase_wizard_act'>
+            <field name="name">Export Product Purchase in Excel</field>
+            <field name="res_model">wizard.purchase.history</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="purchase_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+        <report
+            id="product_purchase_xlsx"
+            model="account.invoice"
+            string=" "
+            report_type="xlsx"
+            name="export_purchaseinfo_xls.summr_wise_xls.xlsx"
+            file="export_purchaseinfo_xls.summr_wise_xls.xlsx"
+            attachment_use="False"
+        />
+        
+        
+        <report
+            id="purchase_indivproductwise_xls"
+            model="account.invoice"
+            string=" "
+            report_type="xlsx"
+            name="export_purchaseinfo_xls.purchase_indivproductwise_xls.xlsx"
+            file="export_purchaseinfo_xls.purchase_indivproductwise_xls.xlsx"
+            attachment_use="False"
+        />
+        
+        <report
+            id="purchase_productwise_xls"
+            model="account.invoice"
+            string=" "
+            report_type="xlsx"
+            name="export_purchaseinfo_xls.purchase_productwise_xls.xlsx"
+            file="export_purchaseinfo_xls.purchase_productwise_xls.xlsx"
+            attachment_use="False"
+        />
+        <report
+            id="purchase_partywise_xls"
+            model="account.invoice"
+            string=" "
+            report_type="xlsx"
+            name="export_purchaseinfo_xls.purchase_partywise_xls.xlsx"
+            file="export_purchaseinfo_xls.purchase_partywise_xls.xlsx"
+            attachment_use="False"
+        />
+                
+        <report
+            id="purchase_categ_xls"
+            model="account.invoice"
+            string=" "
+            report_type="xlsx"
+            name="export_purchaseinfo_xls.categ_wise_xls.xlsx"
+            file="export_purchaseinfo_xls.categ_wise_xls.xlsx"
+            attachment_use="False"
+        />
+        <!-- <menuitem name="Current stock in Excel" parent="stock.menu_warehouse_report" id="export_excel" action="wizard_act" sequence="3"/> -->
+        <menuitem name="Purchase Report"  id="export_purchase_excel" action="purchase_wizard_act"  parent="purchase.menu_purchase_control"/>
+    </data>
+</odoo>
