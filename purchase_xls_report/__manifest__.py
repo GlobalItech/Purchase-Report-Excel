@@ -1,5 +1,5 @@
 {
-    'name': 'Export Purchase Report in Excel',
+    'name': 'Purchase Report in Excel',
     'version': '0.2',
     'category': 'Warehouse',
     'license': "AGPL-3",
